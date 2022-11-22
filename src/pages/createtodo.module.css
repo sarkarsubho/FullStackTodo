@@ -1,0 +1,18 @@
+.main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  width: 100%;
+  gap: 20px;
+  padding: 50px;
+  overflow: scroll;
+}
+.main > div {
+  padding: 20px;
+  box-shadow: rgba(99, 97, 97, 0.658) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  background-color: rgba(65, 65, 66, 0.664);
+  height: 400PX;
+}
+.main>div:nth-child(4){
+padding: 0;
+}

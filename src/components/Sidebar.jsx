@@ -10,6 +10,7 @@ export const Sidebar = () => {
       height={"100vh"}
       justifyContent={"space-between"}
       bg={"#313641"}
+      position=""
     >
       <Flex direction={"column"} textAlign="center">
         <Box

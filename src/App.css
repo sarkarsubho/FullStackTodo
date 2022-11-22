@@ -3,6 +3,7 @@
    background-color: #282c34;
    min-height: 100vh;
    color: aliceblue;
+   display: flex;
 }
 
 .App-logo {
