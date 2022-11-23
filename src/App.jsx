@@ -5,9 +5,11 @@ import { Sidebar } from "./components/Sidebar";
 import { All } from "./pages/All";
 import { CreateTodo } from "./pages/CreateTodo";
 import { Home } from "./pages/Home";
+import { Login } from "./pages/Login";
 import { Official } from "./pages/Official";
 import { Others } from "./pages/Others";
 import { Personal } from "./pages/Personal";
+import { Register } from "./pages/Register";
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function App() {
           <Route path="/official" element={<Official></Official>}></Route>
           <Route path="/others" element={<Others></Others>}></Route>
           <Route path="/createNew" element={<CreateTodo></CreateTodo>}></Route>
+          <Route path="/login" element={<Login></Login>}></Route>
+          <Route path="/register" element={<Register></Register>}></Route>
+
         </Routes>
       </Box>
     </div>
