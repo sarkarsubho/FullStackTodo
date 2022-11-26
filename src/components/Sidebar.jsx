@@ -1,8 +1,10 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { FiLogOut } from "react-icons/fi";
-
+import { AiTwotoneHome } from "react-icons/ai";
 export const Sidebar = () => {
+
+  
   return (
     <Flex
       direction={"column"}
@@ -10,7 +12,6 @@ export const Sidebar = () => {
       height={"100vh"}
       justifyContent={"space-between"}
       bg={"#313641"}
-      position=""
     >
       <Flex direction={"column"} textAlign="center">
         <Box
@@ -25,19 +26,27 @@ export const Sidebar = () => {
         </Box>
 
         <Flex
-          padding={"20px 30px"}
+          padding={"10px"}
           direction={"column"}
           borderBottom={"2px solid gray"}
           gap={"9px"}
+          color={"black"}
         >
           <Flex
-            justifyContent={"space-between"}
-            padding={"10px"}
-            border={"2px"}
-            bg={"blue"}
+            justifyContent={"space-around"}
+            overflow={"hidden"}
+            // border={"2px"}
+            bg={"yellow"}
+            borderRadius={"5px"}
+            padding={"5px"}
+            
+            // gap={"60px"}
           >
-            <Text>All</Text>
-            <Text> 4</Text>
+            {/* <Button colorScheme={"violet"} leftIcon={}>
+             
+            </Button> */}
+             <AiTwotoneHome color="#6e21fd" fontSize={"25px"}></AiTwotoneHome>
+             <Text></Text>
           </Flex>
           <Flex
             justifyContent={"space-between"}
@@ -75,7 +84,7 @@ export const Sidebar = () => {
         colorScheme={"red"}
         rightIcon={<FiLogOut fontSize={"25px"}></FiLogOut>}
       >
-        Logout
+        
       </Button>
     </Flex>
   );

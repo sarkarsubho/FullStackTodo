@@ -1,15 +1,15 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
    background-color: #282c34;
    height: 100vh;
    color: aliceblue;
    display: flex;
 }
 .body{
-  margin: 0 25px;
-  padding: 20px;
+  padding: 10px;
   overflow: auto;
   width: 100%;
+  
 }
 
 

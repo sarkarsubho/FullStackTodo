@@ -132,7 +132,7 @@ export const CreateTodo = () => {
 
   return (
     <Flex direction={"column"} width={"100%"}>
-      <Heading as="h2" size="lg" textAlign={"left"} marginBottom={"10px"}>
+      <Heading as="h2" size="lg" textAlign={"left"} marginBottom={"10px"} position={"sticky"} top={"-5px"} zIndex={5} background={"#282c34"} >
         <Button variant={"ghost"} _hover={{background:"local"}} fontSize={"2xl"} leftIcon={<AiFillEdit></AiFillEdit>}></Button>
         Create New Todo 
       </Heading>
@@ -167,7 +167,7 @@ export const CreateTodo = () => {
         </Flex>
 
         {/* Add Subtask */}
-        <Box>
+        <Box >
           <Flex gap={"10px"}>
             <Input
               value={subtask}
