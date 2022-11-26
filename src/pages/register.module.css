@@ -16,7 +16,7 @@
     width: 280px;
     height: 620px;
     transform-origin: bottom right;
-    background: linear-gradient(0deg,transparent, #6136fa, #6136fa, #6136fa);
+    background: linear-gradient(0deg,transparent, yellow, yellow, yellow);
     animation: animate 4s linear infinite;
   }
   .box::after {
@@ -28,7 +28,7 @@
     width: 280px;
     height: 620px;
     transform-origin: bottom right;
-    background: linear-gradient(0deg,transparent, #6136fa, #6136fa,#6136fa);
+    background: linear-gradient(0deg,transparent, yellow, yellow,yellow);
     animation: animate 4s linear infinite;
     animation-delay: 2s;
   }
