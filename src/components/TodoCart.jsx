@@ -16,7 +16,7 @@ export const TodoCart = () => {
   return (
     <Box
       background={"#3c2981"}
-      width={"350px"}
+      width={["260px","350px","350px",]}
       padding={"20px"}
       borderRadius={"8px"}
     >
@@ -26,12 +26,15 @@ export const TodoCart = () => {
       <Button
         variant={"ghost"}
         _hover={{ background: "local" }}
-        fontSize={"30px"}
+        fontSize={["25px","30px"]}
         color={"yellow.400"}
         margin={"25px 0"}
       >
-        {" Task is in "}
+        
+           {" Task is in "}
         Progress
+      
+       
       </Button>
       <Text fontSize={"22px"} textAlign={"left"} marginBottom={"10px"}>
         {" "}

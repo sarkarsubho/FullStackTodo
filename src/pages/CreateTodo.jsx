@@ -303,7 +303,7 @@ export const CreateTodo = () => {
         {/* ADD Task Button */}
         <Box>
           <Button
-            bg={"#6136fa"}
+            bg={"#4625c0"}
             _hover={{ background: "#6e47fa" }}
             fontSize={"2xl"}
             letterSpacing={"2px"}
