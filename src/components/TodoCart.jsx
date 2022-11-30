@@ -21,14 +21,14 @@ export const TodoCart = () => {
       borderRadius={"8px"}
     >
       <Text fontSize={"27px"} noOfLines={2} margin={0} padding={0}>The Todo Content the Todo content is bigger now and i have to detect it</Text>
-      <Text fontSize={"22px"}> Created on :- 20/02/25</Text>
-      <Text fontSize={"22px"}> Deadline is :- 25/02/25</Text>
+      <Text fontSize={"20px"}> Created on :- 20/02/25</Text>
+      <Text fontSize={"20px"}> Deadline is :- 25/02/25</Text>
       <Button
         variant={"ghost"}
         _hover={{ background: "local" }}
         fontSize={["25px","30px"]}
         color={"yellow.400"}
-        margin={"25px 0"}
+        margin={"17px 0"}
       >
         
            {" Task is in "}
@@ -36,7 +36,7 @@ export const TodoCart = () => {
       
        
       </Button>
-      <Text fontSize={"22px"} textAlign={"left"} marginBottom={"10px"}>
+      <Text fontSize={"20px"} textAlign={"left"} marginBottom={"10px"}>
         {" "}
         # Connected with
       </Text>
@@ -87,7 +87,7 @@ export const TodoCart = () => {
       </Flex>
 
       {/* Subtask cart */}
-      <Text fontSize={"22px"} textAlign={"left"}>
+      <Text fontSize={"20px"} textAlign={"left"}>
         # Related Task
       </Text>
       {/* maping subTaskes */}

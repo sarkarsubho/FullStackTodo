@@ -5,6 +5,7 @@ const todosSchema = new mongoose.Schema(
     title: { type: String, required: true },
     description: { type: String, required: false },
     date: { type: String, required: true },
+    deadline: { type: String, required: true },
     subTasks: [
       {
         id: { type: String },

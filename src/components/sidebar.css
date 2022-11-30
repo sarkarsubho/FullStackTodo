@@ -1,36 +1,44 @@
-/* .pro-sidebar-inner .pro-sidebar-layout{
-    /* background-color: #fece00; 
-    background-image: linear-gradient(0deg, #fece00 0%, #ffe172 100%);
-} */
+
 #sidebarHeader{
-    min-height: 100px;
+    min-height: 110px;
     padding: 5px;
     display: grid;
     place-items: center;
     
 }
+#Profilepic{
+  height: 40px;
+  width: 50px;
+  border-radius: 10px;
+}
+#username{
+  margin-top: -16px;
+}
 #collapsedBtn{
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 900;
     position: absolute;
-    right: 0;
-    top:83px; 
+    right: 0px;
+    top:93px; 
     background-color: aliceblue;
     color: #000;
     padding: 3px;
     border-radius: 10px;
 }
-#sidebar .pro-sidebar-inner .pro-sidebar-layout ul{
-    padding-top: 10px;
+
+#sidebarFooter{
+  padding: 15px;
+  display: flex;
+  
 }
 .pro-sidebar-inner .pro-sidebar-layout .active {
   background-image: linear-gradient(0deg, #6136fa 0%, #6709fd 100%);
 }
 
+
 #sidebar .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper {
   background-color: #6136fa;
   color: #000;
   border-radius: 3px;
-  height: 40px;
-  width: 40px;
-}
+} 
+

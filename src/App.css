@@ -4,6 +4,7 @@
    height: 100vh;
    color: aliceblue;
    display: flex;
+   /* justify-content: space-between */
 }
 .body{
   padding: 10px;

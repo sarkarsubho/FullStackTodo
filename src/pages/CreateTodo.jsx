@@ -23,6 +23,7 @@ const initialState = {
   title: "",
   description: "",
   date: "",
+  deadline:"",
   subTasks: [],
   status: "todo",
   tags: { Official: false, Personal: false, Others: false },
@@ -32,6 +33,7 @@ const types = {
   SET_TITLE: "SET_tITLE",
   SET_DECRIPTION: "SET_DECRIPTION",
   SET_DATE: "SET_DATE",
+  SET_DEADLINE:"SET_DEADLINE",
   SET_SUBTASK: "SET_SUBTASK",
   UPDATE_SUBTASK: "UPDATE_SUBTASK",
   TOGGLE_SUBTASK: "TOGGLE_SUBTASK",
@@ -50,7 +52,8 @@ const reducer = (state, { type, payload }) => {
 
     case types.SET_DATE:
       return { ...state, date: payload };
-
+      case types.SET_DEADLINE:
+        return { ...state, deadline: payload };
     case types.SET_SUBTASK:
       return { ...state, subTasks: [...state.subTasks, payload] };
 
@@ -79,7 +82,7 @@ const reducer = (state, { type, payload }) => {
 
 export const CreateTodo = () => {
   const [state, dispatchState] = useReducer(reducer, initialState);
-  const { title, description, date, subTasks, status, tags } = state;
+  const { title, description, date,deadline, subTasks, status, tags } = state;
   const { Personal, Official, Others } = tags;
   const toast = useToast();
 
@@ -147,6 +150,8 @@ export const CreateTodo = () => {
               dispatchState({ type: types.SET_TITLE, payload: e.target.value })
             }
           ></Input>
+
+          <Text marginBottom={"-15px"}>Creation Date</Text>
           <Input
             type={"date"}
             value={date}
@@ -154,9 +159,19 @@ export const CreateTodo = () => {
               dispatchState({ type: types.SET_DATE, payload: e.target.value })
             }
           ></Input>
+
+          <Text marginBottom={"-15px"}>Deadline</Text>
+          <Input
+            type={"date"}
+            value={deadline}
+            onChange={(e) =>
+              dispatchState({ type: types.SET_DEADLINE, payload: e.target.value })
+            }
+          ></Input>
           <Textarea
             placeholder="Description"
             value={description}
+            minHeight={"120px"}
             onChange={(e) =>
               dispatchState({
                 type: types.SET_DECRIPTION,

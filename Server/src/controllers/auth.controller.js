@@ -55,7 +55,7 @@ const login =
     try {
       // validation from express validation
       const errors = validationResult(req);
-      console.log("validation error", errors);
+      console.log("validation error cheaking console", errors);
 
       if (!errors.isEmpty()) {
         return res

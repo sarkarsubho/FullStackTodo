@@ -1,6 +1,6 @@
 .box {
     position: absolute;
-    width: 280px;
+    width: 295px;
     height: 620px;
     background: #4d4e4e;
     border-radius: 8px;
@@ -16,6 +16,7 @@
     width: 280px;
     height: 620px;
     transform-origin: bottom right;
+    border-radius: 0 0 0 80% ;
     background: linear-gradient(0deg,transparent, yellow, yellow, yellow);
     animation: animate 4s linear infinite;
   }
@@ -28,6 +29,7 @@
     width: 280px;
     height: 620px;
     transform-origin: bottom right;
+    border-radius: 0 0 0 80% ;
     background: linear-gradient(0deg,transparent, yellow, yellow,yellow);
     animation: animate 4s linear infinite;
     animation-delay: 2s;
@@ -90,7 +92,7 @@
   
   .inputbox input:valid ~span,
   .inputbox input:focus ~span{
-      color: #6136fa;
+      color: yellow;
       transform: translateX(0px) translateY(-34px);
       font-size: 0.75em;
   }
@@ -128,7 +130,7 @@
   
   .input[type="submit"]:active 
   {
-      opacity: 0.7;
+      opacity: 0.5;
   }
   .input[type="submit"]:hover 
   {

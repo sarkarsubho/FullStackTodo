@@ -1,6 +1,6 @@
 .box {
     position: absolute;
-    width: 280px;
+    width: 285px;
     height: 420px;
     background: #4d4e4e;
     border-radius: 8px;
@@ -90,7 +90,7 @@
   
   .inputbox input:valid ~span,
   .inputbox input:focus ~span{
-      color: #6136fa;
+      color: yellow;
       transform: translateX(0px) translateY(-34px);
       font-size: 0.75em;
   }
