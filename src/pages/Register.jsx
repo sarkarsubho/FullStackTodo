@@ -1,13 +1,17 @@
 import React from "react";
-import { Grid, Heading } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Grid, Heading, useToast } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./register.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { register } from "../redux/auth/action";
+import { REGISTERREJECTED, REGISTERSUCCESS } from "../redux/auth/action.types";
 export const Register = () => {
   const [registerData, setRegisterData] = useState({});
   const dispatch = useDispatch();
-
+  const toast=useToast();
+  const navigate=useNavigate();
+  
   const handleChange = (e) => {
     let {name, value} = e.target;
     setRegisterData({ ...registerData, [name]: value });
@@ -15,7 +19,30 @@ export const Register = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch()
+    dispatch(register(registerData)).then((res) => {
+      if (res.status === REGISTERSUCCESS) {
+        toast({
+          title: "Registered Successfully.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+
+        // if the user is logined Successfully redirect him to the homepage
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      } else if (res.status === REGISTERREJECTED) {
+        toast({
+          title: "Invalid Email or Password !",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      }
+    });
     console.log("form Submitted", registerData);
   };
 
