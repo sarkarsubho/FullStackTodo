@@ -11,7 +11,7 @@ export const Register = () => {
   const dispatch = useDispatch();
   const toast=useToast();
   const navigate=useNavigate();
-  
+
   const handleChange = (e) => {
     let {name, value} = e.target;
     setRegisterData({ ...registerData, [name]: value });
@@ -35,7 +35,7 @@ export const Register = () => {
         }, 2000);
       } else if (res.status === REGISTERREJECTED) {
         toast({
-          title: "Invalid Email or Password !",
+          title:`${res.message} ! Please check your data & enter correctly.`,
           status: "error",
           duration: 3000,
           isClosable: true,

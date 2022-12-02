@@ -10,6 +10,7 @@ import { Official } from "./pages/Official";
 import { Others } from "./pages/Others";
 import { Personal } from "./pages/Personal";
 import { Register } from "./pages/Register";
+import { RequiredAuth } from "./requiredAuth/RequiredAuth";
 
 function App() {
   return (
@@ -17,15 +18,56 @@ function App() {
       <Sidebar></Sidebar>
       <Box className="body">
         <Routes>
-          <Route path="/" element={<Home></Home>}></Route>
-          <Route path="/all" element={<All></All>}></Route>
-          <Route path="/personal" element={<Personal></Personal>}></Route>
-          <Route path="/official" element={<Official></Official>}></Route>
-          <Route path="/others" element={<Others></Others>}></Route>
-          <Route path="/createNew" element={<CreateTodo></CreateTodo>}></Route>
+          <Route
+            path="/"
+            element={
+              <RequiredAuth>
+                <Home></Home>
+              </RequiredAuth>
+            }
+          ></Route>
+          <Route
+            path="/all"
+            element={
+              <RequiredAuth>
+                <All></All>
+              </RequiredAuth>
+            }
+          ></Route>
+          <Route
+            path="/personal"
+            element={
+              <RequiredAuth>
+                <Personal></Personal>
+              </RequiredAuth>
+            }
+          ></Route>
+          <Route
+            path="/official"
+            element={
+              <RequiredAuth>
+                <Official></Official>
+              </RequiredAuth>
+            }
+          ></Route>
+          <Route
+            path="/others"
+            element={
+              <RequiredAuth>
+                <Others></Others>
+              </RequiredAuth>
+            }
+          ></Route>
+          <Route
+            path="/createNew"
+            element={
+              <RequiredAuth>
+                <CreateTodo></CreateTodo>
+              </RequiredAuth>
+            }
+          ></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/register" element={<Register></Register>}></Route>
-
         </Routes>
       </Box>
     </div>

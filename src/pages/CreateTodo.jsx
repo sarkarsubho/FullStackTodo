@@ -16,14 +16,17 @@ import React, { useState } from "react";
 import { useReducer } from "react";
 import styles from "./createtodo.module.css";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
+// import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { postData } from "../redux/app/action";
+import { POSTDATA_SUCCESS } from "../redux/app/action.types";
 const initialState = {
   title: "",
   description: "",
   date: "",
-  deadline:"",
+  deadline: "",
   subTasks: [],
   status: "todo",
   tags: { Official: false, Personal: false, Others: false },
@@ -33,7 +36,7 @@ const types = {
   SET_TITLE: "SET_tITLE",
   SET_DECRIPTION: "SET_DECRIPTION",
   SET_DATE: "SET_DATE",
-  SET_DEADLINE:"SET_DEADLINE",
+  SET_DEADLINE: "SET_DEADLINE",
   SET_SUBTASK: "SET_SUBTASK",
   UPDATE_SUBTASK: "UPDATE_SUBTASK",
   TOGGLE_SUBTASK: "TOGGLE_SUBTASK",
@@ -52,8 +55,8 @@ const reducer = (state, { type, payload }) => {
 
     case types.SET_DATE:
       return { ...state, date: payload };
-      case types.SET_DEADLINE:
-        return { ...state, deadline: payload };
+    case types.SET_DEADLINE:
+      return { ...state, deadline: payload };
     case types.SET_SUBTASK:
       return { ...state, subTasks: [...state.subTasks, payload] };
 
@@ -81,12 +84,14 @@ const reducer = (state, { type, payload }) => {
 };
 
 export const CreateTodo = () => {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [state, dispatchState] = useReducer(reducer, initialState);
-  const { title, description, date,deadline, subTasks, status, tags } = state;
+  const { title, description, date, deadline, subTasks, status, tags } = state;
   const { Personal, Official, Others } = tags;
   const toast = useToast();
 
-  console.log(state);
+  console.log(user.email);
   let [subtask, setSubTask] = useState("");
 
   const handleSubTask = () => {
@@ -100,17 +105,18 @@ export const CreateTodo = () => {
     setSubTask("");
   };
 
-  const user = "sarkarsaby@gmail.com";
+  // const user = "sarkarsaby@gmail.com";
 
   const handleAdd = () => {
     const payload = {
       ...state,
-      user,
+      user: user.email,
     };
 
-    axios
-      .post(" http://localhost:8080/todos", payload)
-      .then((res) => {
+    // axios
+    //   .post(" http://localhost:8080/todos", payload)
+    dispatch(postData(payload)).then((res) => {
+      if (res.status === POSTDATA_SUCCESS) {
         toast({
           title: "TODO Created Successfully.",
           status: "success",
@@ -118,26 +124,39 @@ export const CreateTodo = () => {
           isClosable: true,
           position: "bottom-left",
         });
-      })
-      .then((res) => {
-        dispatchState({ type: types.RESET });
-      })
-      .catch((er) => {
+        dispatchState({type:types.RESET})
+      } else {
         toast({
-          title: "An Error Occered When creating TODO !.",
+          title:
+            "An Error Occered When creating TODO !. Please fill the From properly.",
           status: "error",
           duration: 3000,
           isClosable: true,
           position: "bottom-left",
         });
-      });
+      }
+    });
   };
 
   return (
     <Flex direction={"column"} width={"100%"}>
-      <Heading as="h2" size="lg" textAlign={"left"} marginBottom={"10px"} position={"sticky"} top={"-5px"} zIndex={5} background={"#282c34"} >
-        <Button variant={"ghost"} _hover={{background:"local"}} fontSize={"2xl"} leftIcon={<AiFillEdit></AiFillEdit>}></Button>
-        Create New Todo 
+      <Heading
+        as="h2"
+        size="lg"
+        textAlign={"left"}
+        marginBottom={"10px"}
+        position={"sticky"}
+        top={"-5px"}
+        zIndex={5}
+        background={"#282c34"}
+      >
+        <Button
+          variant={"ghost"}
+          _hover={{ background: "local" }}
+          fontSize={"2xl"}
+          leftIcon={<AiFillEdit></AiFillEdit>}
+        ></Button>
+        Create New Todo
       </Heading>
       <Box className={styles.main}>
         {/* todo Content */}
@@ -165,7 +184,10 @@ export const CreateTodo = () => {
             type={"date"}
             value={deadline}
             onChange={(e) =>
-              dispatchState({ type: types.SET_DEADLINE, payload: e.target.value })
+              dispatchState({
+                type: types.SET_DEADLINE,
+                payload: e.target.value,
+              })
             }
           ></Input>
           <Textarea
@@ -182,7 +204,7 @@ export const CreateTodo = () => {
         </Flex>
 
         {/* Add Subtask */}
-        <Box >
+        <Box>
           <Flex gap={"10px"}>
             <Input
               value={subtask}
@@ -273,7 +295,8 @@ export const CreateTodo = () => {
             <Stack>
               <Checkbox
                 size="lg"
-                defaultChecked={Personal}
+                isChecked={Personal}
+                
                 colorScheme="green"
                 onChange={(e) => {
                   dispatchState({
@@ -287,7 +310,7 @@ export const CreateTodo = () => {
               </Checkbox>
               <Checkbox
                 size="lg"
-                defaultChecked={Official}
+                isChecked={Official}
                 colorScheme="green"
                 onChange={(e) => {
                   dispatchState({
@@ -300,7 +323,7 @@ export const CreateTodo = () => {
               </Checkbox>
               <Checkbox
                 size="lg"
-                defaultChecked={Others}
+                isChecked={Others}
                 colorScheme="green"
                 onChange={(e) => {
                   dispatchState({

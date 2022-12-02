@@ -7,11 +7,17 @@
    /* justify-content: space-between */
 }
 .body{
-  padding: 10px;
+  padding: 0 5px;
   overflow: auto;
   width: 100%;
   
 }
 
-
+.displayData{
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+ gap: 20px;
+ padding: 50px;
+ padding-top: 0px;
+}
 

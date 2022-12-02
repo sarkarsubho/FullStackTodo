@@ -29,7 +29,15 @@ export const Login = () => {
 
         // if the user is logined Successfully redirect him to the homepage
         setTimeout(() => {
+          toast({
+            title: `Welcome HOME ${res.user.name}`,
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "bottom-left",
+          });
           navigate("/");
+
         }, 2000);
       } else if (res.status === LOGINREJECTED) {
         toast({

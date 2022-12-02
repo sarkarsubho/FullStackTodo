@@ -3,26 +3,46 @@ import {
   Button,
   Checkbox,
   Flex,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
   Tag,
   TagLabel,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { CgHashtag } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
 
-export const TodoCart = () => {
-  return (
+export const TodoCart = ({data}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  return (<>
+    <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{data.title}</ModalHeader>
+          <ModalCloseButton color={"red"} fontSize={"16px"}  />
+          <ModalBody pb={6}>
+            {data.description}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+  
     <Box
       background={"#3c2981"}
       width={["260px","350px","350px",]}
       padding={"20px"}
       borderRadius={"8px"}
     >
-      <Text fontSize={"27px"} noOfLines={2} margin={0} padding={0}>The Todo Content the Todo content is bigger now and i have to detect it</Text>
-      <Text fontSize={"20px"}> Created on :- 20/02/25</Text>
-      <Text fontSize={"20px"}> Deadline is :- 25/02/25</Text>
+      <Text fontSize={"27px"} noOfLines={2} margin={0} padding={0}>{data.title} </Text>
+      <Text fontSize={"20px"}> Created on :- {data.date}</Text>
+      <Text fontSize={"20px"}> Deadline is :- {data.deadline}</Text>
+      <Button colorScheme={"teal"} onClick={onOpen} float={"right"}  height={"20px"}>more Details</Button>
       <Button
         variant={"ghost"}
         _hover={{ background: "local" }}
@@ -31,8 +51,8 @@ export const TodoCart = () => {
         margin={"17px 0"}
       >
         
-           {" Task is in "}
-        Progress
+           {" Task is on "}
+       {data.status}
       
        
       </Button>
@@ -43,9 +63,23 @@ export const TodoCart = () => {
 
       {/* map the Tags */}
       <Flex gap={"10px"} wrap={"wrap"} marginBottom={"20px"}>
-        {/* map function */}
+               
+       { data.tags.Personal && <Tag size={"lg"} borderRadius={"full"} >
+          <Box
+            background={"#6136FA"}
+            fontWeight={900}
+            padding={"5px"}
+            borderRadius={"full"}
+            marginRight={"5px"}
+            marginLeft={"-9px"}
+          
+          >
+            <CgHashtag color="white" ></CgHashtag>
+          </Box>
+          <TagLabel>Personal</TagLabel>
+        </Tag>}
 
-        <Tag size={"lg"} borderRadius={"full"}>
+        { data.tags.Official && <Tag size={"lg"} borderRadius={"full"}>
           <Box
             background={"#6136FA"}
             fontWeight={900}
@@ -56,9 +90,10 @@ export const TodoCart = () => {
           >
             <CgHashtag color="white"></CgHashtag>
           </Box>
-          <TagLabel>Ccfdsyan</TagLabel>
-        </Tag>
-        <Tag size={"lg"} borderRadius={"full"}>
+          <TagLabel>Official</TagLabel>
+        </Tag>}
+
+        { data.tags.Others && <Tag size={"lg"} borderRadius={"full"}>
           <Box
             background={"#6136FA"}
             fontWeight={900}
@@ -69,21 +104,8 @@ export const TodoCart = () => {
           >
             <CgHashtag color="white"></CgHashtag>
           </Box>
-          <TagLabel>Ccfdsyan</TagLabel>
-        </Tag>
-        <Tag size={"lg"} borderRadius={"full"}>
-          <Box
-            background={"#6136FA"}
-            fontWeight={900}
-            padding={"5px"}
-            borderRadius={"full"}
-            marginRight={"5px"}
-            marginLeft={"-9px"}
-          >
-            <CgHashtag color="white"></CgHashtag>
-          </Box>
-          <TagLabel>Ccfdsyan</TagLabel>
-        </Tag>
+          <TagLabel>Others</TagLabel>
+        </Tag>}
       </Flex>
 
       {/* Subtask cart */}
@@ -93,9 +115,10 @@ export const TodoCart = () => {
       {/* maping subTaskes */}
       <Flex direction={"column"} padding={"0 0 15px 15px"}>
         {/* map subtask here */}
-        <Flex gap={"10px"} alignItems={"center"}>
+        {data.subTasks.map((e)=>
+        <Flex gap={"10px"} alignItems={"center"} key={e.id}>
           <Checkbox
-            // checked={task.status}
+            isChecked={e.status}
             size={"lg"}
             colorScheme={"green"}
             // onChange={() =>
@@ -105,7 +128,7 @@ export const TodoCart = () => {
             //   })
             // }
           ></Checkbox>
-          <Text fontSize={"22px"}>{"task.text"} </Text>
+          <Text fontSize={"22px"}> {`${e.text}`}</Text>
           <Button
             leftIcon={<MdDelete color={"red"}></MdDelete>}
             fontSize={"30px"}
@@ -118,7 +141,8 @@ export const TodoCart = () => {
             //   })
             // }
           ></Button>
-        </Flex>
+        </Flex>)}
+
       </Flex>
 
       {/* Delete Task Button */}
@@ -139,15 +163,7 @@ export const TodoCart = () => {
         </Button>
         
       </Flex>
-      {/* <Box textAlign={"right"}>
-        <Button
-          colorScheme={"red"}
-          fontSize={"18px"}
-          // rightIcon={<MdDelete color={"white"}></MdDelete>}
-        >
-          Delete Task
-        </Button>
-      </Box> */}
     </Box>
+    </>
   );
 };

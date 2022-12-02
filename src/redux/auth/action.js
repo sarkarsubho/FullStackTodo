@@ -9,8 +9,11 @@ export const register = (payload) => (dispatch) => {
       return { status: types.REGISTERSUCCESS };
     })
     .catch((er) => {
-      console.log("register Error from FE",er)
-      return { status: types.REGISTERREJECTED };
+      console.log("register Error from FE", er.response.data);
+      return {
+        status: types.REGISTERREJECTED,
+        message: er.response.data.message,
+      };
     });
 };
 
@@ -21,7 +24,7 @@ export const login = (payload) => (dispatch) => {
     .then((res) => {
       console.log(res.data);
       dispatch({ type: types.LOGINSUCCESS, payload: res.data });
-      return { status: types.LOGINSUCCESS };
+      return { status: types.LOGINSUCCESS,user:res.data.user };
     })
     .catch((er) => {
       console.log("login Error in FE", er);

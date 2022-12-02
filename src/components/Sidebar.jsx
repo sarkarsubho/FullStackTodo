@@ -17,11 +17,10 @@ import { FaList } from "react-icons/fa";
 import { SiMicrosoftoffice, SiOneplus } from "react-icons/si";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { CgDisplayGrid, CgLogIn } from "react-icons/cg";
-import styles from "./Sidebar.module.css";
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
 import "./sidebar.css";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+
 
 export const Sidebar = () => {
   let { user, isAuth } = useSelector((state) => state.auth);
@@ -68,7 +67,7 @@ export const Sidebar = () => {
             src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
             id="Profilepic"
           ></Image>
-          <Text id="username">{isAuth ? user.name : "User Name"}</Text>
+          <Text textAlign={"center"} id="username">{isAuth ? user.name : "User Name"}</Text>
           <Box id={"collapsedBtn"} onClick={handleCollapsed}>
             {collapsed ? (
               <AiOutlineDoubleRight fontWeight={900} />
@@ -79,7 +78,7 @@ export const Sidebar = () => {
         </SidebarHeader>
 
         <SidebarContent>
-          <Menu iconShape="square" className={styles.menu}>
+          <Menu iconShape="square" >
             <MenuItem
               icon={<AiTwotoneHome color="white" fontSize={"25px"} />}
               active={active.home}
@@ -99,7 +98,7 @@ export const Sidebar = () => {
             </MenuItem>
           </Menu>
 
-          <Menu iconShape="square" className={styles.menu}>
+          <Menu iconShape="square" >
             <MenuItem
               icon={<FaList color="white" fontSize={"22px"} />}
               active={active.all}
@@ -119,7 +118,7 @@ export const Sidebar = () => {
             </MenuItem>
           </Menu>
 
-          <Menu iconShape="square" className={styles.menu}>
+          <Menu iconShape="square" >
             <MenuItem
               icon={<SiMicrosoftoffice color="white" fontSize={"22px"} />}
               active={active.official}
@@ -138,7 +137,7 @@ export const Sidebar = () => {
               <Link to="/official"></Link>
             </MenuItem>
           </Menu>
-          <Menu iconShape="square" className={styles.menu}>
+          <Menu iconShape="square" >
             <MenuItem
               icon={<BsFillSuitHeartFill color="white" fontSize={"22px"} />}
               active={active.personal}
@@ -157,7 +156,7 @@ export const Sidebar = () => {
               <Link to="/personal"></Link>
             </MenuItem>
           </Menu>
-          <Menu iconShape="square" className={styles.menu}>
+          <Menu iconShape="square" >
             <MenuItem
               icon={<CgDisplayGrid color="white" fontSize={"25px"} />}
               active={active.other}
@@ -176,7 +175,7 @@ export const Sidebar = () => {
               <Link to="/others"></Link>
             </MenuItem>
           </Menu>
-          <Menu iconShape="square" className={styles.menu}>
+          <Menu iconShape="square" >
             <MenuItem
               icon={<SiOneplus color="white" fontSize={"22px"} />}
               active={active.new}
