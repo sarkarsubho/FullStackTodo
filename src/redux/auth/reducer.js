@@ -1,4 +1,4 @@
-import { loadData, saveData } from "../../utils/localstorage";
+import { loadData, saveData ,removeData} from "../../utils/localstorage";
 import * as types from "./action.types";
 const initState = {
   isLoading: false,
@@ -26,6 +26,11 @@ export const authReducer = (state = initState, { type, payload }) => {
       };
     case types.LOGINREJECTED:
       return { ...state, isLoading: false, isError: true };
+    
+    case types.LOGOUT:
+      removeData("token");
+      removeData("user")
+      return {...state,isAuth:false,token:"",user:{}}
     default:
       return state;
   }

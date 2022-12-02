@@ -10,19 +10,11 @@ export const Home = () => {
   let { isLoading, isError, allTodo, personalTodo, officialTodo, othersTodo } =useSelector((state) => state.app);
   let toast = useToast();
   const dispatch = useDispatch();
-  // if(isAuth){
-  //   toast({
-  //     title: `Welcome HOME ${user.name}`,
-  //     status: "success",
-  //     duration: 3000,
-  //     isClosable: true,
-  //     position: "bottom-left",
-  //   });
-  // }
+
   useEffect(() => {
-    dispatch(getData(user));
+    allTodo.length===0 && dispatch(getData(user));
   }, []);
-  console.log(user);
+  // console.log(user);
   return (
     <Box padding={"20px"} height={"90vh"}>
       <Heading size="xl"> {`Welcome to Home ${user.name}`}</Heading>
@@ -40,7 +32,7 @@ export const Home = () => {
           height={"100%"}
         >
           <Flex width={"230px"} justifyContent={"space-between"}>
-            <Button colorScheme={"purple"} border={"2px solid yellow"}>
+            <Button colorScheme={"purple"}  >
               {" "}
               ALL
             </Button>

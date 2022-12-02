@@ -23,10 +23,11 @@ export const postData = (payload) => (dispatch) => {
     .post("https://fullstacktodo-production.up.railway.app/todo/post", payload)
     .then((res) => {
       console.log(res.data);
-
+      dispatch({ type: types.POSTDATA_SUCCESS, payload: res.data });
       return { status: types.POSTDATA_SUCCESS };
     })
     .catch((err) => {
+      dispatch({ type: types.POSTDATA_REJECTED });
       console.log("error from post data action ", err);
       return { status: types.POSTDATA_REJECTED };
     });
@@ -34,20 +35,32 @@ export const postData = (payload) => (dispatch) => {
 
 export const updateData = (payload) => (dispatch) => {
   dispatch({ type: types.UPDATEDATA_REQUEST });
-  axios
-    .patch("")
-    .then((res) => {})
+  return axios
+    .patch(`https://fullstacktodo-production.up.railway.app/todo/${payload._id}`)
+    .then((res) => {
+      console.log(res.data);
+      dispatch({type:types.UPDATEDATA_SUCCESS,payload:res.data})
+      return { status: types.UPDATEDATA_SUCCESS }
+    })
     .catch((err) => {
       console.log("error from patch data action ", err);
+      dispatch({type:types.UPDATEDATA_REJECTED})
+      return { status: types.UPDATEDATA_REJECTED }
     });
 };
 
 export const deleteData = (payload) => (dispatch) => {
   dispatch({ type: types.DELETEDATA_REQUEST });
-  axios
-    .delete("")
-    .then((res) => {})
+  return axios
+    .delete(`https://fullstacktodo-production.up.railway.app/todo/${payload._id}`)
+    .then((res) => {
+      console.log("deleted data",res.data);
+      dispatch({type:types.DELETEDATA_SUCCESS,payload:res.data})
+      return { status: types.DELETEDATA_SUCCESS }
+    })
     .catch((err) => {
       console.log("error from delete data action ", err);
+      dispatch({type:types.DELETEDATA_REJECTED});
+      return { status: types.DELETEDATA_REJECTED }
     });
 };
