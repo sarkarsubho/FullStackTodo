@@ -53,7 +53,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// Find by user name
+// Find Todos by user name
 
 router.get("/user/:user", async (req, res) => {
   try {

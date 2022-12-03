@@ -9,6 +9,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Select,
   Tag,
   TagLabel,
   Text,
@@ -20,27 +21,120 @@ import { CgHashtag } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { deleteData } from "../redux/app/action";
-import { DELETEDATA_SUCCESS } from "../redux/app/action.types";
+import { deleteData, updateData } from "../redux/app/action";
+import {
+  DELETEDATA_SUCCESS,
+  UPDATEDATA_SUCCESS,
+} from "../redux/app/action.types";
 
 export const TodoCart = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
-  let toast=useToast();
-  const handleDelete = () => {
-    console.log("delete clicked")
-    dispatch(deleteData(data)).then((res)=>{
-      if(res.status===DELETEDATA_SUCCESS){
+  let toast = useToast();
+
+  // update Subtask
+
+  const handleUpdateSubtask = (id, val) => {
+    let sub = data.subTasks;
+    let desub = sub.map((e) => (e._id !== id ? { ...e, status: val } : e));
+    dispatch(updateData({ ...data, subTasks: desub })).then((res) => {
+      if (res.status === UPDATEDATA_SUCCESS) {
         toast({
-          title:`Todo Deleted Successfully ...`,
+          title: `Subtask Updated Successfully ...`,
           status: "success",
           duration: 3000,
           isClosable: true,
           position: "bottom-left",
         });
-      }else{
+      } else {
         toast({
-          title:`Todo Deleted Unsuccessfully. Unknown error Occored`,
+          title: `Subtask Updated Unsuccessfully !`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      }
+    });
+    console.log("updated val", id, val);
+  };
+
+  // Delete Subtask
+
+  const handleDeleteSubtask = (id) => {
+    let sub = data.subTasks;
+    let desub = sub.filter((e) => e._id !== id);
+    dispatch(updateData({ ...data, subTasks: desub })).then((res) => {
+      if (res.status === UPDATEDATA_SUCCESS) {
+        toast({
+          title: `Subtask Deleted Successfull ...`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      } else {
+        toast({
+          title: `Subtask Deleted Unsuccessfull!`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      }
+    });
+    console.log(" delete id", id);
+  };
+
+  const handleStatus = (val) => {
+    if (!val) {
+      toast({
+        title: `Defaulte value cannot be chosen. choose correct opition !`,
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+    } else {
+      let updatedData = { ...data, status: val };
+      dispatch(updateData(updatedData)).then((res) => {
+        if (res.status === UPDATEDATA_SUCCESS) {
+          toast({
+            title: `Status Updated Successfull.`,
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "bottom-left",
+          });
+        } else {
+          toast({
+            title: `Status Updated Unsuccessfull!`,
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "bottom-left",
+          });
+        }
+      });
+    }
+    console.log(val);
+  };
+
+  // Delete Todo functionality
+  const handleDelete = () => {
+    console.log("delete clicked");
+    dispatch(deleteData(data)).then((res) => {
+      if (res.status === DELETEDATA_SUCCESS) {
+        toast({
+          title: `Todo Deleted Successfully ...`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      } else {
+        toast({
+          title: `Todo Deleted Unsuccessfully. Unknown error Occored`,
           status: "error",
           duration: 3000,
           isClosable: true,
@@ -49,6 +143,7 @@ export const TodoCart = ({ data }) => {
       }
     });
   };
+
   return (
     <>
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
@@ -69,8 +164,14 @@ export const TodoCart = ({ data }) => {
         <Text fontSize={"27px"} noOfLines={2} margin={0} padding={0}>
           {data.title}{" "}
         </Text>
-        <Text fontSize={"20px"}> Created on :- {data.date}</Text>
-        <Text fontSize={"20px"}> Deadline is :- {data.deadline}</Text>
+        <Text fontSize={["15px", "15px", "20px"]}>
+          {" "}
+          Created on :- {data.date}
+        </Text>
+        <Text fontSize={["15px", "15px", "20px"]}>
+          {" "}
+          Deadline is :- {data.deadline}
+        </Text>
         <Button
           colorScheme={"teal"}
           onClick={onOpen}
@@ -79,16 +180,60 @@ export const TodoCart = ({ data }) => {
         >
           more Details
         </Button>
-        <Button
-          variant={"ghost"}
-          _hover={{ background: "local" }}
-          fontSize={["25px", "30px"]}
-          color={"yellow.400"}
+
+        {/* show Status */}
+
+        <Flex
           margin={"17px 0"}
+          marginTop={"30px"}
+          width={"100%"}
+          direction={"column"}
         >
-          {" Task is on "}
-          {data.status}
-        </Button>
+          <Button
+            variant={"ghost"}
+            _active={{ background: "local" }}
+            _hover={{ background: "local" }}
+            fontSize={["25px", "30px"]}
+            color={
+              data.status === "todo"
+                ? "red.400"
+                : data.status === "inprogress"
+                ? "yellow.400"
+                : "green.600"
+            }
+          >
+            {" Task is on "}
+            {data.status}
+          </Button>
+
+          <Box>
+            <Select
+              placeholder="Change Status"
+              size={"xs"}
+              paddingTop={"0px"}
+              width
+              backgroundColor={"white"}
+              fontWeight={600}
+              color={"black"}
+              onChange={(element) => handleStatus(element.target.value)}
+              float={"right"}
+            >
+              <option disabled={data.status === "todo"} value="todo">
+                Todo{" "}
+              </option>
+              <option
+                disabled={data.status === "inprogress"}
+                value="inprogress"
+              >
+                Inprogress
+              </option>
+              <option disabled={data.status === "done"} value="done">
+                Done
+              </option>
+            </Select>
+          </Box>
+        </Flex>
+
         <Text fontSize={"20px"} textAlign={"left"} marginBottom={"10px"}>
           {" "}
           # Connected with
@@ -155,15 +300,12 @@ export const TodoCart = ({ data }) => {
           {data.subTasks.map((e) => (
             <Flex gap={"10px"} alignItems={"center"} key={e.id}>
               <Checkbox
-                isChecked={e.status}
+                checked={e.status}
                 size={"lg"}
                 colorScheme={"green"}
-                // onChange={() =>
-                //   dispatchState({
-                //     type: types.TOGGLE_SUBTASK,
-                //     payload: task.id,
-                //   })
-                // }
+                onChange={(element) =>
+                  handleUpdateSubtask(e._id, element.target.checked)
+                }
               ></Checkbox>
               <Text fontSize={"22px"}> {`${e.text}`}</Text>
               <Button
@@ -171,14 +313,14 @@ export const TodoCart = ({ data }) => {
                 fontSize={"30px"}
                 variant={"ghost"}
                 _hover={{ background: "local" }}
-                // onClick={handleDelete}
+                onClick={() => handleDeleteSubtask(e._id)}
               ></Button>
             </Flex>
           ))}
         </Flex>
 
         {/* Delete Task Button */}
-        <Flex justifyContent={"space-between"}>
+        {/* <Flex justifyContent={"space-between"}>
           <Button
             colorScheme={"green"}
             fontSize={"18px"}
@@ -196,7 +338,16 @@ export const TodoCart = ({ data }) => {
           >
             Delete
           </Button>
-        </Flex>
+        </Flex> */}
+        <Button
+          float={"right"}
+          colorScheme={"red"}
+          fontSize={"18px"}
+          rightIcon={<MdDelete fontSize={"23px"} color={"white"}></MdDelete>}
+          onClick={handleDelete}
+        >
+          Delete
+        </Button>
       </Box>
     </>
   );

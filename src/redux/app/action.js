@@ -36,7 +36,7 @@ export const postData = (payload) => (dispatch) => {
 export const updateData = (payload) => (dispatch) => {
   dispatch({ type: types.UPDATEDATA_REQUEST });
   return axios
-    .patch(`https://fullstacktodo-production.up.railway.app/todo/${payload._id}`)
+    .patch(`https://fullstacktodo-production.up.railway.app/todo/${payload._id}`,payload)
     .then((res) => {
       console.log(res.data);
       dispatch({type:types.UPDATEDATA_SUCCESS,payload:res.data})
