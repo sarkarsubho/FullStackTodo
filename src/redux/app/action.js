@@ -23,7 +23,7 @@ export const postData = (payload) => (dispatch) => {
     .post("https://fullstacktodo-production.up.railway.app/todo/post", payload)
     .then((res) => {
       console.log(res.data);
-      dispatch({ type: types.POSTDATA_SUCCESS, payload: res.data });
+      dispatch({ type: types.POSTDATA_SUCCESS, payload: res.data});
       return { status: types.POSTDATA_SUCCESS };
     })
     .catch((err) => {

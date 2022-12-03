@@ -38,7 +38,8 @@ export const appReducer = (state = initState, { type, payload }) => {
       return { ...state, isLoading: true, isError: false };
       
     case types.POSTDATA_SUCCESS:
-      let updatedTodos=state.allTodo.push(payload);
+      let updatedTodos=[...state.allTodo,payload];
+      // console.log("consoling updated data",updatedTodos)
       const updatedPersonal = updatedTodos.filter((e) => e.tags.Personal === true);
       const updatedOfficial = updatedTodos.filter((e) => e.tags.Official === true);
       const updatedOthers = updatedTodos.filter((e) => e.tags.Others === true);

@@ -1,19 +1,26 @@
 import React from "react";
-import { Grid, Heading, useToast } from "@chakra-ui/react";
+import { Button, Flex, Grid, Heading, useToast } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./register.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../redux/auth/action";
 import { REGISTERREJECTED, REGISTERSUCCESS } from "../redux/auth/action.types";
+import { ImEye ,ImEyeBlocked} from "react-icons/im";
+
 export const Register = () => {
   const [registerData, setRegisterData] = useState({});
   const dispatch = useDispatch();
-  const toast=useToast();
-  const navigate=useNavigate();
+  const toast = useToast();
+  const navigate = useNavigate();
+  const [showPassword,setShowPassword]=useState(false);
+
+  const handleShowPassword=()=>{
+    setShowPassword(!showPassword);
+  }
 
   const handleChange = (e) => {
-    let {name, value} = e.target;
+    let { name, value } = e.target;
     setRegisterData({ ...registerData, [name]: value });
   };
 
@@ -35,7 +42,7 @@ export const Register = () => {
         }, 2000);
       } else if (res.status === REGISTERREJECTED) {
         toast({
-          title:`${res.message} ! Please check your data & enter correctly.`,
+          title: `${res.message} ! Please check your data & enter correctly.`,
           status: "error",
           duration: 3000,
           isClosable: true,
@@ -84,16 +91,25 @@ export const Register = () => {
           </div>
 
           <div className={styles.inputbox}>
-            <input
-              type="text"
-              required="required"
-              name="password"
-              onChange={(e) => {
-                handleChange(e);
-              }}
-            />
-            <span>Password</span>
-            <i></i>
+            <Flex>
+              <div>
+                <input
+                  type={showPassword ? "text":"password"}
+                  required="required"
+                  name="password"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+                <span>Password</span>
+                <i></i>
+              </div>
+              <Button variant={"ghost"} _active={{background:"local"}} _hover={{background:"local"} } paddingTop={"20px"} onClick={handleShowPassword} >
+                {
+                  showPassword ? <ImEyeBlocked fontSize={"30px"}/>:<ImEye fontSize={"30px"} />
+                }
+              </Button>
+            </Flex>
           </div>
 
           <div className={styles.inputbox}>

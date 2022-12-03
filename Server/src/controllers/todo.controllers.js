@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/post", async (req, res) => {
   try {
     const data = await Todo.create(req.body);
-    return res.status(200).send({ data, status: "success" });
+    return res.status(200).send(data);
   } catch (er) {
     return res.status(500).send({ error: er.message });
   }

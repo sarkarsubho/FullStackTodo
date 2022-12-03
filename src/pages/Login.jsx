@@ -1,15 +1,22 @@
-import { Grid, Heading, useToast } from "@chakra-ui/react";
+import { Button, Flex, Grid, Heading, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../redux/auth/action";
 import { LOGINREJECTED, LOGINSUCCESS } from "../redux/auth/action.types";
 import styles from "./login.module.css";
+import { ImEye, ImEyeBlocked } from "react-icons/im";
+
 export const Login = () => {
   const [loginData, setLogindata] = useState({});
   const dispatch = useDispatch();
   const toast = useToast();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -37,7 +44,6 @@ export const Login = () => {
             position: "bottom-left",
           });
           navigate("/");
-
         }, 2000);
       } else if (res.status === LOGINREJECTED) {
         toast({
@@ -75,14 +81,31 @@ export const Login = () => {
             <i></i>
           </div>
           <div className={styles.inputbox}>
-            <input
-              type="text"
-              name="password"
-              required="required"
-              onChange={(e) => handleChange(e)}
-            />
-            <span>Password</span>
-            <i></i>
+            <Flex>
+              <div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  required="required"
+                  onChange={(e) => handleChange(e)}
+                />
+                <span>Password</span>
+                <i></i>
+              </div>
+              <Button
+                variant={"ghost"}
+                _active={{ background: "local" }}
+                _hover={{ background: "local" }}
+                paddingTop={"20px"}
+                onClick={handleShowPassword}
+              >
+                {showPassword ? (
+                  <ImEyeBlocked fontSize={"30px"} />
+                ) : (
+                  <ImEye fontSize={"30px"} />
+                )}
+              </Button>
+            </Flex>
           </div>
           {/* <div className={styles.inputbox}>
             <input
