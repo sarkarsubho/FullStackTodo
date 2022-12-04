@@ -25,7 +25,7 @@ import { useEffect } from "react";
 
 export const Sidebar = () => {
   let { user, isAuth } = useSelector((state) => state.auth);
-  const [windowwidth, setWindowwidth] = useState(window.innerWidth < 400);
+  const [windowwidth] = useState(window.innerWidth < 400);
   const dispatch = useDispatch();
   console.log(windowwidth);
   const [collapsed, setCollapsed] = useState(windowwidth);

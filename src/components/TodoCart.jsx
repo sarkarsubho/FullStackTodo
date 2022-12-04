@@ -19,7 +19,7 @@ import {
 import React from "react";
 import { CgHashtag } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
-import { AiFillEdit } from "react-icons/ai";
+// import { AiFillEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { deleteData, updateData } from "../redux/app/action";
 import {
@@ -36,7 +36,7 @@ export const TodoCart = ({ data }) => {
 
   const handleUpdateSubtask = (id, val) => {
     let sub = data.subTasks;
-    let desub = sub.map((e) => (e._id !== id ? { ...e, status: val } : e));
+    let desub = sub.map((e) => (e._id === id ? { ...e, status: val } : e));
     dispatch(updateData({ ...data, subTasks: desub })).then((res) => {
       if (res.status === UPDATEDATA_SUCCESS) {
         toast({
@@ -56,7 +56,7 @@ export const TodoCart = ({ data }) => {
         });
       }
     });
-    console.log("updated val", id, val);
+    console.log("updated val", id, val, { ...data, subTasks: desub });
   };
 
   // Delete Subtask
@@ -300,7 +300,7 @@ export const TodoCart = ({ data }) => {
           {data.subTasks.map((e) => (
             <Flex gap={"10px"} alignItems={"center"} key={e.id}>
               <Checkbox
-                checked={e.status}
+                isChecked={e.status}
                 size={"lg"}
                 colorScheme={"green"}
                 onChange={(element) =>
