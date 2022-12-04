@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Button, useColorMode } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Sidebar } from "./components/Sidebar";
@@ -13,10 +13,12 @@ import { Register } from "./pages/Register";
 import { RequiredAuth } from "./requiredAuth/RequiredAuth";
 
 function App() {
+  // let {colorMode,toggleColorMode}=useColorMode();
   return (
     <div className="App">
       <Sidebar></Sidebar>
       <Box className="body">
+       {/* <Button onClick={toggleColorMode}>ggg</Button> */}
         <Routes>
           <Route
             path="/"
