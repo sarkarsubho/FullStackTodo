@@ -12,6 +12,12 @@ app.use(express.json());
 app.use(cors());
 const todoController = require("./controllers/todo.controllers");
 const userController = require("./controllers/user.controller");
+
+const productController=require("./controllers/product.controller");
+const cartController=require("./controllers/cart.controller");
+
+app.use("/products",productController);
+app.use("/cart",cartController);
 app.use("/todo", todoController);
 app.use("/user", userController);
 
