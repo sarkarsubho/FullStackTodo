@@ -7,6 +7,12 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import  {store}  from "./redux/store";
+
+import axios from "axios";
+
+axios.defaults.baseURL = "https://rich-erin-moth-ring.cyclic.app";
+axios.defaults.headers.post["Content-Type"] = "application/json";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

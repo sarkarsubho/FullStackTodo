@@ -1,13 +1,15 @@
 import { Button, Flex, Grid, Heading, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { login } from "../redux/auth/action";
 import { LOGINREJECTED, LOGINSUCCESS } from "../redux/auth/action.types";
 import styles from "./login.module.css";
 import { ImEye, ImEyeBlocked } from "react-icons/im";
 
 export const Login = () => {
+  const location=useLocation();
+  console.log("location from Loginpage",location)
   const [loginData, setLogindata] = useState({});
   const dispatch = useDispatch();
   const toast = useToast();
@@ -43,7 +45,7 @@ export const Login = () => {
             isClosable: true,
             position: "bottom-left",
           });
-          navigate("/");
+          navigate(location?.state ? location.state.from.pathname: "/");
         }, 2000);
       } else if (res.status === LOGINREJECTED) {
         toast({

@@ -3,7 +3,7 @@ import * as types from "./action.types";
 
 export const register = (payload) => (dispatch) => {
   return axios
-    .post("https://fullstacktodo-production.up.railway.app/register", payload)
+    .post("/register", payload)
     .then((res) => {
       console.log(res.data);
       return { status: types.REGISTERSUCCESS };
@@ -20,7 +20,7 @@ export const register = (payload) => (dispatch) => {
 export const login = (payload) => (dispatch) => {
   dispatch({ type: types.LOGINREQUEST });
   return axios
-    .post("https://fullstacktodo-production.up.railway.app/login", payload)
+    .post("/login", payload)
     .then((res) => {
       console.log(res.data);
       dispatch({ type: types.LOGINSUCCESS, payload: res.data });

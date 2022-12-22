@@ -5,7 +5,7 @@ export const getData = (props) => (dispatch) => {
   dispatch({ type: types.GETDATAREQUEST });
   axios
     .get(
-      `https://fullstacktodo-production.up.railway.app/todo/user/${props.email}`
+      `/todo/user/${props.email}`
     )
     .then((res) => {
       dispatch({ type: types.GETDATASUCCESS, payload: res.data });
@@ -20,7 +20,7 @@ export const getData = (props) => (dispatch) => {
 export const postData = (payload) => (dispatch) => {
   dispatch({ type: types.POSTDATA_REQUEST });
   return axios
-    .post("https://fullstacktodo-production.up.railway.app/todo/post", payload)
+    .post("/todo/post", payload)
     .then((res) => {
       console.log(res.data);
       dispatch({ type: types.POSTDATA_SUCCESS, payload: res.data});
@@ -36,7 +36,7 @@ export const postData = (payload) => (dispatch) => {
 export const updateData = (payload) => (dispatch) => {
   dispatch({ type: types.UPDATEDATA_REQUEST });
   return axios
-    .patch(`https://fullstacktodo-production.up.railway.app/todo/${payload._id}`,payload)
+    .patch(`/todo/${payload._id}`,payload)
     .then((res) => {
       console.log(res.data);
       dispatch({type:types.UPDATEDATA_SUCCESS,payload:res.data})
@@ -52,7 +52,7 @@ export const updateData = (payload) => (dispatch) => {
 export const deleteData = (payload) => (dispatch) => {
   dispatch({ type: types.DELETEDATA_REQUEST });
   return axios
-    .delete(`https://fullstacktodo-production.up.railway.app/todo/${payload._id}`)
+    .delete(`/${payload._id}`)
     .then((res) => {
       console.log("deleted data",res.data);
       dispatch({type:types.DELETEDATA_SUCCESS,payload:res.data})

@@ -8,6 +8,6 @@ export const RequiredAuth = ({ children }) => {
   if (isAuth) {
     return children;
   } else {
-    return <Navigate to={"/register"} state={{ from: location }}></Navigate>;
+    return <Navigate to={"/login"} state={{ from: location }}></Navigate>;
   }
 };
