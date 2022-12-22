@@ -25,6 +25,14 @@ router.get("/", async (req, res) => {
     return res.status(500).send({ error: er.message });
   }
 });
+router.get("/:id", async (req, res) => {
+    try {
+      const data = await Product.findOne({_id: req.params.id}).lean().exec();
+      return res.status(200).send(data);
+    } catch (er) {
+      return res.status(500).send({ error: er.message });
+    }
+  });
 
 // Update One By Id
 
