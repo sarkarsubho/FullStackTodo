@@ -52,7 +52,7 @@ export const updateData = (payload) => (dispatch) => {
 export const deleteData = (payload) => (dispatch) => {
   dispatch({ type: types.DELETEDATA_REQUEST });
   return axios
-    .delete(`/${payload._id}`)
+    .delete(`todo/${payload._id}`)
     .then((res) => {
       console.log("deleted data",res.data);
       dispatch({type:types.DELETEDATA_SUCCESS,payload:res.data})
